@@ -1,0 +1,4 @@
+import { fixtures } from '../data/fixtures';
+export function normalizePostal(value: string) { const clean = value.replace(/\s/g, ''); return /^\d{5}$/.test(clean) ? `${clean.slice(0,2)}-${clean.slice(2)}` : clean; }
+export function classifyPostal(value: string) { const code = normalizePostal(value); if (!/^\d{2}-\d{3}$/.test(code)) return 'invalid'; if (fixtures.postal.supportedPostalCodes.includes(code)) return 'supported'; if (fixtures.postal.unsupportedPostalCodes.includes(code)) return 'unsupported'; return 'unknown'; }
+export function postalMessage(value: string) { const status = classifyPostal(value); return status === 'supported' ? `Dostawa dostępna w konfiguratorze dla kodu ${normalizePostal(value)}.` : status === 'unsupported' ? 'Ten kod jest poza dostępną strefą.' : status === 'unknown' ? 'Nie mamy informacji o dostawie dla tego kodu.' : 'Wpisz kod w formacie 00-000.'; }

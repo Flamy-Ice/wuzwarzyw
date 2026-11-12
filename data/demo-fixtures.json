@@ -1,0 +1,429 @@
+{
+  "meta": {
+    "brand": "wuzwarzyw",
+    "mode": "DEMO",
+    "purpose": "UX prototype only",
+    "notForRealOrders": true,
+    "unverifiedBusinessData": true,
+    "sources": "Brief #8 and visual mockup; all concrete commercial/location values are non-production."
+  },
+  "businessFactsFromBrief": {
+    "farmersCount": 12,
+    "actualSupportedPostalCodesCount": 37,
+    "actualSupportedPostalCodesListAvailable": false,
+    "mobileSharePercent": 65,
+    "subscriptionIsWeekly": true
+  },
+  "postal": {
+    "supportedPostalCodes": [
+      "60-001",
+      "60-002",
+      "61-001"
+    ],
+    "unsupportedPostalCodes": [
+      "00-001"
+    ],
+    "unknownCodeBehavior": "unknown_not_unsupported",
+    "format": "NN-NNN"
+  },
+  "delivery": {
+    "demoDaysOfWeekISO": [
+      2,
+      4
+    ],
+    "timezone": "Europe/Warsaw",
+    "numberOfUpcomingOptions": 4,
+    "demoOnly": true
+  },
+  "boxes": [
+    {
+      "id": "small",
+      "label": "Mała skrzynka",
+      "sizeNote": "1–2 osoby",
+      "description": "Dla jednej osoby lub pary. Wszystko, czego trzeba do codziennego gotowania.",
+      "priceGrosze": 6900,
+      "shippingGrosze": 1200,
+      "estimatedWeight": "4–5 kg",
+      "illustrativeCount": "8–10 odmian"
+    },
+    {
+      "id": "medium",
+      "label": "Średnia skrzynka",
+      "sizeNote": "3–4 osoby",
+      "description": "Na wspólne obiady i pełną dobrych rzeczy lodówkę. W sam raz dla rodziny.",
+      "priceGrosze": 9900,
+      "shippingGrosze": 1000,
+      "estimatedWeight": "7–9 kg",
+      "illustrativeCount": "12–14 odmian"
+    },
+    {
+      "id": "large",
+      "label": "Duża skrzynka",
+      "sizeNote": "Większa rodzina",
+      "description": "Dla dużego stołu i tych, którzy kochają gotować. Sezon w pełnej okazałości.",
+      "priceGrosze": 13500,
+      "shippingGrosze": 0,
+      "estimatedWeight": "11–13 kg",
+      "illustrativeCount": "16+ odmian"
+    }
+  ],
+  "addons": [
+    {
+      "id": "eggs",
+      "label": "Jajka (6 szt.)",
+      "priceGrosze": 1500,
+      "maxQty": 5
+    },
+    {
+      "id": "bread",
+      "label": "Chleb na zakwasie",
+      "priceGrosze": 1700,
+      "maxQty": 5
+    },
+    {
+      "id": "honey",
+      "label": "Miód (słoik)",
+      "priceGrosze": 2900,
+      "maxQty": 5
+    }
+  ],
+  "coupon": {
+    "code": "START10",
+    "discountGrosze": 1000,
+    "appliesTo": "first_demo_order_only",
+    "notRealPromotion": true
+  },
+  "weeks": [
+    {
+      "id": "current",
+      "label": "Ten tydzień — sezonowy zestaw",
+      "illustrativeOnly": true,
+      "items": [
+        {
+          "name": "Młode ziemniaki",
+          "quantity": "1,5 kg"
+        },
+        {
+          "name": "Marchew",
+          "quantity": "1 kg"
+        },
+        {
+          "name": "Świeży por",
+          "quantity": "1 szt."
+        },
+        {
+          "name": "Sałata rzymska",
+          "quantity": "2 szt."
+        },
+        {
+          "name": "Botwinka",
+          "quantity": "1 pęczek"
+        },
+        {
+          "name": "Jabłka",
+          "quantity": "1 kg"
+        }
+      ]
+    },
+    {
+      "id": "week-1",
+      "label": "Zawartość z tygodnia −1",
+      "illustrativeOnly": true,
+      "items": [
+        {
+          "name": "Buraki",
+          "quantity": "1 kg"
+        },
+        {
+          "name": "Kapusta młoda",
+          "quantity": "1 szt."
+        },
+        {
+          "name": "Rzodkiewki",
+          "quantity": "2 pęczki"
+        },
+        {
+          "name": "Pietruszka",
+          "quantity": "0,5 kg"
+        },
+        {
+          "name": "Jabłka",
+          "quantity": "1 kg"
+        },
+        {
+          "name": "Szczypiorek",
+          "quantity": "1 pęczek"
+        }
+      ]
+    },
+    {
+      "id": "week-2",
+      "label": "Zawartość z tygodnia −2",
+      "illustrativeOnly": true,
+      "items": [
+        {
+          "name": "Dynia",
+          "quantity": "1 szt."
+        },
+        {
+          "name": "Ziemniaki",
+          "quantity": "2 kg"
+        },
+        {
+          "name": "Cebula",
+          "quantity": "1 kg"
+        },
+        {
+          "name": "Kalarepa",
+          "quantity": "2 szt."
+        },
+        {
+          "name": "Śliwki",
+          "quantity": "1 kg"
+        },
+        {
+          "name": "Sałata",
+          "quantity": "1 szt."
+        }
+      ]
+    },
+    {
+      "id": "week-3",
+      "label": "Zawartość z tygodnia −3",
+      "illustrativeOnly": true,
+      "items": [
+        {
+          "name": "Marchew",
+          "quantity": "1 kg"
+        },
+        {
+          "name": "Por",
+          "quantity": "2 szt."
+        },
+        {
+          "name": "Fasolka szparagowa",
+          "quantity": "0,5 kg"
+        },
+        {
+          "name": "Cukinia",
+          "quantity": "2 szt."
+        },
+        {
+          "name": "Jabłka",
+          "quantity": "1 kg"
+        },
+        {
+          "name": "Koperek",
+          "quantity": "1 pęczek"
+        }
+      ]
+    },
+    {
+      "id": "week-4",
+      "label": "Zawartość z tygodnia −4",
+      "illustrativeOnly": true,
+      "items": [
+        {
+          "name": "Ziemniaki",
+          "quantity": "1 kg"
+        },
+        {
+          "name": "Buraki",
+          "quantity": "1 kg"
+        },
+        {
+          "name": "Cebula czerwona",
+          "quantity": "0,5 kg"
+        },
+        {
+          "name": "Jarmuż",
+          "quantity": "1 pęczek"
+        },
+        {
+          "name": "Gruszki",
+          "quantity": "1 kg"
+        },
+        {
+          "name": "Natka pietruszki",
+          "quantity": "1 pęczek"
+        }
+      ]
+    }
+  ],
+  "farmers": [
+    {
+      "id": "farmer-01",
+      "displayName": "Pan Janusz",
+      "specialty": "Uprawy warzywne",
+      "area": "Kórnik",
+      "verified": false,
+      "profileType": "illustrative",
+      "description": "Warzywny ogród, w którym każdy sezon ma swoją pracę i swój smak. Marchew, buraki i chrupiące korzenie najlepiej pokazują, jak wiele zależy od dobrej ziemi."
+    },
+    {
+      "id": "farmer-02",
+      "displayName": "Anna i Marek",
+      "specialty": "Sałaty i zielenina",
+      "area": "Tarnowo Podgórne",
+      "verified": false,
+      "profileType": "illustrative",
+      "description": "Świeże liście są bohaterami tej historii. Sałaty i delikatna zielenina wnoszą do kuchni kolor, lekkość i pomysły na proste posiłki."
+    },
+    {
+      "id": "farmer-03",
+      "displayName": "Pan Kazimierz",
+      "specialty": "Ziemniaki i tradycyjne warzywa",
+      "area": "Mosina",
+      "verified": false,
+      "profileType": "illustrative",
+      "description": "Ziemniaki i tradycyjne warzywa to podstawa domowego stołu. Zwyczajne składniki, z których powstają najbardziej lubiane potrawy."
+    },
+    {
+      "id": "farmer-04",
+      "displayName": "Rodzina Nowaków",
+      "specialty": "Sad owocowy",
+      "area": "Pobiedziska",
+      "verified": false,
+      "profileType": "illustrative",
+      "description": "Sad zmienia się razem z porami roku. Jabłka, liście i zapach dojrzałych owoców przypominają, że na niektóre smaki warto poczekać."
+    },
+    {
+      "id": "farmer-05",
+      "displayName": "Pan Wojciech",
+      "specialty": "Czosnek i cebula",
+      "area": "Czempiń",
+      "verified": false,
+      "profileType": "illustrative",
+      "description": "Czosnek i cebula — małe składniki o wielkim charakterze. Dodają głębi prostym daniom i dobrze odnajdują się w niemal każdej kuchni."
+    },
+    {
+      "id": "farmer-06",
+      "displayName": "Pani Zofia",
+      "specialty": "Zioła i świeże liście",
+      "area": "Stęszew",
+      "verified": false,
+      "profileType": "illustrative",
+      "description": "Zioła i świeże liście nadają potrawom ostatni, najważniejszy akcent. Odrobina zieleni potrafi zmienić cały obiad."
+    },
+    {
+      "id": "farmer-07",
+      "displayName": "Gospodarstwo Zielony Zakątek",
+      "specialty": "Sezonowe warzywa",
+      "area": "Okolice Poznania",
+      "verified": false,
+      "profileType": "illustrative",
+      "description": "Warzywny ogród, w którym każdy sezon ma swoją pracę i swój smak. Marchew, buraki i chrupiące korzenie najlepiej pokazują, jak wiele zależy od dobrej ziemi."
+    },
+    {
+      "id": "farmer-08",
+      "displayName": "Ogród nad Wartą",
+      "specialty": "Sezonowe warzywa",
+      "area": "Okolice Poznania",
+      "verified": false,
+      "profileType": "illustrative",
+      "description": "Świeże liście są bohaterami tej historii. Sałaty i delikatna zielenina wnoszą do kuchni kolor, lekkość i pomysły na proste posiłki."
+    },
+    {
+      "id": "farmer-09",
+      "displayName": "Rodzinne Grządki",
+      "specialty": "Sezonowe warzywa",
+      "area": "Okolice Poznania",
+      "verified": false,
+      "profileType": "illustrative",
+      "description": "Ziemniaki i tradycyjne warzywa to podstawa domowego stołu. Zwyczajne składniki, z których powstają najbardziej lubiane potrawy."
+    },
+    {
+      "id": "farmer-10",
+      "displayName": "Sad pod Lasem",
+      "specialty": "Sezonowe warzywa",
+      "area": "Okolice Poznania",
+      "verified": false,
+      "profileType": "illustrative",
+      "description": "Sad zmienia się razem z porami roku. Jabłka, liście i zapach dojrzałych owoców przypominają, że na niektóre smaki warto poczekać."
+    },
+    {
+      "id": "farmer-11",
+      "displayName": "Warzywny Zakątek",
+      "specialty": "Sezonowe warzywa",
+      "area": "Okolice Poznania",
+      "verified": false,
+      "profileType": "illustrative",
+      "description": "Czosnek i cebula — małe składniki o wielkim charakterze. Dodają głębi prostym daniom i dobrze odnajdują się w niemal każdej kuchni."
+    },
+    {
+      "id": "farmer-12",
+      "displayName": "Ogród Dobrego Smaku",
+      "specialty": "Sezonowe warzywa",
+      "area": "Okolice Poznania",
+      "verified": false,
+      "profileType": "illustrative",
+      "description": "Zioła i świeże liście nadają potrawom ostatni, najważniejszy akcent. Odrobina zieleni potrafi zmienić cały obiad."
+    }
+  ],
+  "recipes": [
+    {
+      "id": "root-soup",
+      "title": "Krem z pieczonych warzyw korzeniowych",
+      "durationMin": 35,
+      "ingredients": [
+        "marchew",
+        "ziemniaki",
+        "por",
+        "cebula",
+        "olej",
+        "bulion"
+      ],
+      "steps": [
+        "Rozgrzej piekarnik do 200°C.",
+        "Umyj i pokrój warzywa, wymieszaj z olejem.",
+        "Piecz około 25 minut do miękkości.",
+        "Zblenduj z ciepłym bulionem do ulubionej konsystencji."
+      ],
+      "illustrativeOnly": true
+    },
+    {
+      "id": "roasted-potatoes",
+      "title": "Młode ziemniaki z warzywami z pieca",
+      "durationMin": 40,
+      "ingredients": [
+        "młode ziemniaki",
+        "marchew",
+        "czosnek",
+        "koperek",
+        "olej"
+      ],
+      "steps": [
+        "Umyj ziemniaki i pozostałe warzywa.",
+        "Wymieszaj z olejem i przyprawami.",
+        "Piecz około 30–35 minut w 200°C.",
+        "Posyp koperkiem przed podaniem."
+      ],
+      "illustrativeOnly": true
+    },
+    {
+      "id": "radish-salad",
+      "title": "Chrupiąca sałatka z rzodkiewką",
+      "durationMin": 15,
+      "ingredients": [
+        "sałata",
+        "rzodkiewki",
+        "botwinka",
+        "jogurt",
+        "musztarda",
+        "miód"
+      ],
+      "steps": [
+        "Umyj dokładnie liście i rzodkiewki.",
+        "Pokrój warzywa na drobne kawałki.",
+        "Wymieszaj jogurt, odrobinę musztardy i miodu.",
+        "Połącz z sosem tuż przed podaniem."
+      ],
+      "illustrativeOnly": true
+    }
+  ],
+  "referral": {
+    "demoCode": "WUZWARZYW-DZIELSIE",
+    "demoOnly": true,
+    "rewardPromise": null
+  }
+}

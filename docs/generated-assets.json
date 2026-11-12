@@ -1,0 +1,42 @@
+{
+  "method": "built-in image_gen",
+  "generatedAt": "2026-11-05",
+  "assets": [
+    {
+      "name": "harvest",
+      "prompt": "Use case: product-mockup. Asset type: wide hero photograph for a Polish local seasonal vegetable subscription website. Photorealistic editorial photograph, landscape 1536x1024. A rustic wooden crate overflowing with fresh carrots with leafy tops, beets, lettuce, leeks, potatoes and apples on a warm cream linen-covered farmhouse table, soft morning side light, olive green garden softly blurred in background. Beautiful abundant vegetables, earthy tactile textures, deep forest greens and restrained orange. Subject fills frame, calm composition, honest natural food photography, premium independent food magazine. No text, no lettering, no logos, no watermark, no illustrations.",
+      "source": "C:\\Users\\Flamy\\.codex\\generated_images\\01a1abed-3231-7de1-b25c-7bc8c8ff291d\\exec-0da11651-b5a8-44ae-a2c7-d3dee1fd17ff.png",
+      "output": "public/images/harvest.jpg"
+    },
+    {
+      "name": "farm",
+      "prompt": "Use case: photo-natural. Asset type: wide editorial farm photograph for website. Landscape 1536x1024. A lush small Polish countryside vegetable garden outside Poznan, an anonymous gardener seen from behind carrying a wooden harvest crate, greenhouse and old brick farmhouse in the distance, rows of vegetables, early golden morning light. Rich organic green tones, cream sky, tactile soil, documentary editorial 35mm photography with gentle film grain, believable non-staged moment. No recognizable face, no text, no logo, no watermark.",
+      "source": "C:\\Users\\Flamy\\.codex\\generated_images\\01a1abed-3231-7de1-b25c-7bc8c8ff291d\\exec-924cf79d-33c5-4ffb-a5d7-658d2d1e6170.png",
+      "output": "public/images/farm.jpg"
+    },
+    {
+      "name": "soup",
+      "prompt": "Use case: product-mockup. Asset type: food editorial photograph for website recipe card. Landscape 1536x1024. Creamy roasted root vegetable soup in a handmade ivory ceramic bowl, carrot orange soup with a subtle swirl of cream, toasted seeds and fresh parsley, rustic sourdough slice on linen beside bowl, warm light wooden farmhouse table, olive greens and warm cream tones. Beautiful natural side lighting, overhead three-quarter angle, tasteful independent food magazine styling, food fills frame, realistic texture. No text, no logos, no watermark.",
+      "source": "C:\\Users\\Flamy\\.codex\\generated_images\\01a1abed-3231-7de1-b25c-7bc8c8ff291d\\exec-17d6e00b-7ece-4985-8064-653e84ee66bc.png",
+      "output": "public/images/soup.jpg"
+    },
+    {
+      "name": "potatoes",
+      "prompt": "Use case: product-mockup. Asset type: food editorial photograph for website recipe card. Landscape 1536x1024. A rustic ceramic baking dish filled with golden roasted baby potatoes, roasted carrots and garlic, fresh dill and herbs, crisp edges and appetizing natural texture, linen napkin on a warm farmhouse table, soft sunny side light, deep green and warm cream accents. Editorial food magazine photography, three-quarter overhead angle, food fills frame. No text, no logos, no watermark.",
+      "source": "C:\\Users\\Flamy\\.codex\\generated_images\\01a1abed-3231-7de1-b25c-7bc8c8ff291d\\exec-02c1c3b4-c664-4c53-87f4-132d602affd3.png",
+      "output": "public/images/potatoes.jpg"
+    },
+    {
+      "name": "salad",
+      "prompt": "Use case: product-mockup. Asset type: food editorial photograph for website recipe card. Landscape 1536x1024. A fresh crisp salad in a shallow handmade ivory ceramic bowl, vibrant green lettuce and beet greens, thinly sliced pink red radishes, delicate yogurt mustard dressing, scattered fresh herbs, cream linen and light wood farmhouse table, morning natural side light. Photorealistic editorial food photography, overhead three-quarter angle, food fills frame, forest green and warm cream palette. No text, no logos, no watermark.",
+      "source": "C:\\Users\\Flamy\\.codex\\generated_images\\01a1abed-3231-7de1-b25c-7bc8c8ff291d\\exec-d8382263-2aab-42fd-81e8-9066577f242f.png",
+      "output": "public/images/salad.jpg"
+    },
+    {
+      "name": "farm-grid",
+      "prompt": "Use case: photo-natural. Asset type: website photographic contact sheet, six separate photographic panels arranged exactly in a seamless 3 column by 2 row regular grid, each panel equal size, no borders or gaps. Wide landscape canvas 1800x800. Six distinct documentary editorial photographs of Polish small-scale vegetable farming in soft golden sunlight: top left older man from behind in a greenhouse harvesting tomatoes; top center farmer couple seen from behind carrying a crate in vegetable field; top right closeup hands lifting fresh potatoes from earth; bottom left apple orchard with basket of apples in foreground; bottom center freshly pulled garlic bundles in hands with barn background; bottom right female gardener from behind picking herbs in green rows. Faces not recognizable. The panels are independent photos, NEVER merge scenes across panel boundaries. Cohesive earthy green, golden cream, warm documentary photography, premium independent food magazine. Each scene clear, realistic, no text, no captions, no logos, no watermark.",
+      "source": "C:\\Users\\Flamy\\.codex\\generated_images\\01a1abed-3231-7de1-b25c-7bc8c8ff291d\\exec-4e830c19-909a-4698-a676-269da3f98ed6.png",
+      "output": "public/images/farm-grid.jpg"
+    }
+  ]
+}

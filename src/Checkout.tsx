@@ -1,0 +1,54 @@
+import { useEffect, useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { fixtures as f } from './data/fixtures';
+import { repository } from './data/repository';
+import type { BoxId, Cart, Subscription } from './domain/types';
+import { classifyPostal } from './domain/postal';
+import { dateLabel, upcomingDates } from './domain/delivery';
+import { money, pricing } from './domain/pricing';
+import { contactErrors, createOrder, emptyContact, validateCart, type Contact } from './domain/order';
+import { PostalForm } from './ui';
+import { Referral } from './Referral';
+export function CostSummary({cart}: {cart:Cart}) {
+  const cost=pricing(cart), box=f.boxes.find(b=>b.id===cart.boxId)!;
+  return <aside className="card order-summary" aria-label="Koszt zamówienia"><span className="eyebrow">Twoja skrzynka</span><h2>{box.label}</h2><p>{box.sizeNote} · {box.estimatedWeight}</p><dl><div><dt>Skrzynka</dt><dd>{money(cost.box)}</dd></div><div><dt>Dostawa</dt><dd>{money(cost.shipping)}</dd></div>{f.addons.filter(a=>cart.quantities[a.id]>0).map(a=><div key={a.id}><dt>{a.label} × {cart.quantities[a.id]}</dt><dd>{money(a.priceGrosze)} / szt.</dd></div>)}<div><dt>Dodatki razem</dt><dd>{money(cost.addons)}</dd></div><div><dt>Rabat na pierwszą dostawę</dt><dd>−{money(cost.discount)}</dd></div></dl><div className="order-total" role="status" aria-live="polite"><span>Pierwsza dostawa</span><strong>{money(cost.total)}</strong></div><p className="small">Kolejne tygodnie: {money(cost.subtotal)} z wybranymi dodatkami, bez jednorazowego rabatu.</p>{cart.deliveryDate && <p className="small">Pierwszy termin: <strong>{dateLabel(cart.deliveryDate)}</strong></p>}<p className="note">Pauza i rezygnacja w panelu. Ty decydujesz o kolejnych skrzynkach.</p></aside>;
+}
+const fields: {key:keyof Contact;label:string;type:string}[]=[{key:'name',label:'Imię',type:'text'},{key:'email',label:'E-mail',type:'email'},{key:'phone',label:'Telefon (opcjonalny)',type:'tel'},{key:'street',label:'Ulica i numer',type:'text'},{key:'city',label:'Miejscowość',type:'text'}];
+export function Checkout({box,postal,setPostal,onSaved}: {box:BoxId;postal:string;setPostal:(code:string)=>void;onSaved:(s:Subscription)=>void}) {
+  const navigate=useNavigate(); const [step,setStep]=useState(0);
+  const [cart,setCart]=useState<Cart>({boxId:box,postalCode:postal,deliveryDate:upcomingDates()[0],quantities:{},coupon:null});
+  const [verified,setVerified]=useState(classifyPostal(postal)==='supported'?postal:'');
+  const [coupon,setCoupon]=useState(''),[couponMessage,setCouponMessage]=useState('');
+  const [contact,setContact]=useState<Contact>({...emptyContact}),[errors,setErrors]=useState<Partial<Record<keyof Contact,string>>>({});
+  const [error,setError]=useState(''),[consent,setConsent]=useState(false),[busy,setBusy]=useState(false);const lock=useRef(false);const heading=useRef<HTMLHeadingElement>(null);
+  useEffect(()=>{heading.current?.focus();},[step]);
+  function next() {
+    setError('');
+    if(!verified || verified!==cart.postalCode || classifyPostal(cart.postalCode)!=='supported'){setError('Najpierw sprawdź dostępność dla swojego kodu pocztowego.');setStep(0);requestAnimationFrame(()=>document.querySelector<HTMLInputElement>('.postal-form input')?.focus());return;}
+    try {validateCart(cart);}catch(e){setError((e as Error).message);setStep(0);requestAnimationFrame(()=>document.getElementById('delivery-date')?.focus());return;}
+    if(step===2){const issues=contactErrors(contact);setErrors(issues);const first=Object.keys(issues)[0];if(first){requestAnimationFrame(()=>document.getElementById(`contact-${first}`)?.focus());return;}}
+    setStep(step+1);
+  }
+  function confirm() {
+    if(lock.current)return;
+    if(!verified || verified!==cart.postalCode){setError('Sprawdź ponownie kod.');setStep(0);return;}
+    const issues=contactErrors(contact);if(Object.keys(issues).length){setErrors(issues);setStep(2);return;}
+    lock.current=true;setBusy(true);setError('');
+    try { const record=createOrder(cart,consent);repository.save(record);onSaved(record);setContact({...emptyContact});navigate('/zamow/potwierdzenie',{replace:true}); }
+    catch(e){setError((e as Error).message);lock.current=false;setBusy(false);if(!consent)document.getElementById('consent')?.focus();}
+  }
+  return <main id="main" className="checkout-page"><div className="container"><Link className="back-link" to="/#skrzynki">← Wróć do skrzynek</Link><span className="eyebrow">Dobry tydzie? zaczyna si? tutaj</span><h1>Twoja skrzynka, Twój rytm.</h1><p>Wybierz rozmiar, termin i dodatki. Wszystko w swoim rytmie.</p><ol className="progress" aria-label="Etapy zamówienia">{['Dostawa','Skrzynka','Dane','Podsumowanie'].map((label,i)=><li key={label} aria-current={step===i?'step':undefined} className={step===i?'current':step>i?'complete':''}><span>{i+1}</span>{label}</li>)}</ol><div className="checkout-grid"><section className="card wizard"><h2 ref={heading} tabIndex={-1}>{['Sprawdź dostawę i termin','Dopasuj swoją skrzynkę','Twoje dane','Sprawdź, zanim potwierdzisz'][step]}</h2>
+    {step===0?<><p>Wybrany wariant: <strong>{f.boxes.find(b=>b.id===cart.boxId)!.label}</strong>. Kod sprawdzamy przed podaniem danych.</p><PostalForm initial={cart.postalCode} onEdit={()=>{setVerified('');setPostal('');setCart(current=>({...current,postalCode:''}));}} onSupported={code=>{setVerified(code);setPostal(code);setCart(current=>({...current,postalCode:code}));setError('');}}/>{verified && <p className="note" role="status">Kod {verified} sprawdzony pozytywnie.</p>}<label className="field" htmlFor="delivery-date">Wybierz termin<select aria-describedby={error?'wizard-error':undefined} id="delivery-date" value={cart.deliveryDate} onChange={e=>setCart({...cart,deliveryDate:e.target.value})}>{upcomingDates().map(date=><option key={date} value={date}>{dateLabel(date)}</option>)}</select></label><button onClick={next}>Dalej: skrzynka →</button></>:
+    <form noValidate onSubmit={e=>{e.preventDefault();if(step===3)confirm();else next();}}>
+      {step===1 && <><fieldset><legend>Rozmiar skrzynki</legend><div className="box-options">{f.boxes.map(b=><label className={`option ${cart.boxId===b.id?'selected':''}`} key={b.id}><input type="radio" name="box" value={b.id} checked={cart.boxId===b.id} onChange={()=>setCart({...cart,boxId:b.id})}/><span><strong>{b.label}</strong><small>{b.sizeNote} · z dostawą {money(pricing({boxId:b.id,quantities:{},coupon:null}).total)}</small></span></label>)}</div></fieldset><fieldset className="addons"><legend>Coś dobrego do skrzynki? (opcjonalnie)</legend>{f.addons.map(a=><label key={a.id} className="addon" htmlFor={`addon-${a.id}`}><span><strong>{a.label}</strong><small>{money(a.priceGrosze)} / szt. ·</small></span><select id={`addon-${a.id}`} value={cart.quantities[a.id]??0} onChange={e=>setCart({...cart,quantities:{...cart.quantities,[a.id]:Number(e.target.value)}})}>{Array.from({length:a.maxQty+1},(_,i)=><option key={i} value={i}>{i}</option>)}</select></label>)}</fieldset><label htmlFor="coupon">Kupon</label><div className="input-row"><input id="coupon" value={coupon} aria-describedby="coupon-help coupon-result" onChange={e=>{setCoupon(e.target.value);setCouponMessage('');}}/><button type="button" className="secondary" onClick={()=>{const valid=coupon.trim().toUpperCase()===f.coupon.code;setCart({...cart,coupon:valid?f.coupon.code:null});setCouponMessage(valid?'Kupon zastosowany tylko do pierwszej dostawy.':'Nieprawidłowy kupon. Rabat nie został zastosowany.');}}>Zastosuj kupon</button></div><small id="coupon-help">Wypróbuj {f.coupon.code}: {money(f.coupon.discountGrosze)} mniej na pierwszą dostawę.</small><p id="coupon-result" className="feedback" role="status">{couponMessage}</p>{cart.coupon && <button className="text-button" type="button" onClick={()=>{setCart({...cart,coupon:null});setCoupon('');setCouponMessage('Kupon usunięty.');}}>Usuń kupon</button>}</>}
+      {step===2 && <><p className="note">Dane służą do podglądu zamówienia. Nie zapisujemy ich i nie wysyłamy. Znikną po potwierdzeniu lub opuszczeniu konfiguratora.</p><div className="contact-fields">{fields.map(({key,label,type})=><label className="field" key={key} htmlFor={`contact-${key}`}>{label}{key!=='phone'&&' *'}<input id={`contact-${key}`} type={type} autoComplete="off" required={key!=='phone'} value={contact[key]} aria-invalid={!!errors[key]} aria-describedby={errors[key]?`error-${key}`:undefined} onChange={e=>{setContact({...contact,[key]:e.target.value});setErrors({...errors,[key]:undefined});}}/>{errors[key]&&<small className="error" id={`error-${key}`}>{errors[key]}</small>}</label>)}</div></>}
+      {step===3 && <><div className="review"><p><strong>{f.boxes.find(b=>b.id===cart.boxId)!.label}</strong> · cotygodniowo</p><p>Kod pocztowy: {cart.postalCode}<br/>Pierwszy termin: {dateLabel(cart.deliveryDate)}</p><p>Dane zostały sprawdzone. Nie zostaną zapisane ani wysłane.</p></div><p className="note">Potwierdzenie zapisuje konfigurację w tej przeglądarce. Nie pobiera opłaty i nie uruchamia dostawy ani wysyłki e-mail.</p><label className="consent" htmlFor="consent"><input aria-invalid={!!error&&!consent} aria-describedby={error?'wizard-error':undefined} id="consent" type="checkbox" checked={consent} onChange={e=>setConsent(e.target.checked)}/>Zgadzam się na lokalny zapis ustawień subskrypcji.</label></>}
+      <div className="wizard-actions"><button type="button" className="secondary" onClick={()=>{setStep(step-1);setError('');}}>← Wstecz</button><button disabled={busy} type="submit">{busy?'Zapisywanie…':step===3?'Potwierdź konfigurację':step===1?'Dalej: dane →':'Dalej: podsumowanie →'}</button></div>
+    </form>}
+    {error&&<p id="wizard-error" className="error" role="alert">{error}</p>}
+    </section><CostSummary cart={cart}/></div></div></main>;
+}
+export function Confirmation({record}: {record:Subscription|null}) {
+  if(!record)return <main id="main" className="container section"><h1>Brak zapisanej skrzynki</h1><p>W tej przeglądarce nie ma zapisanej subskrypcji.</p><Link className="button" to="/zamow">Skonfiguruj skrzynkę</Link></main>;
+  return <main id="main" className="container result-page"><div className="success-mark" aria-hidden="true">✓</div><span className="eyebrow">Zapisano w Twojej przeglądarce</span><h1>Twoja skrzynka jest skonfigurowana.</h1><p>Zapisaliśmy ustawienia Twojej skrzynki. Żadna opłata nie została pobrana,<br/>a skrzynka nie zostanie wysłana. Nie wysyłamy potwierdzenia e-mail.</p><p className="record-id">Numer: {record.id.replace(/^DEMO-/, 'WZ-')}</p><Link className="button" to="/panel">Przejdź do swojego panelu →</Link>{repository.sessionOnly&&<p role="status" className="note">Zmiany są dostępne tylko w tej sesji — przeglądarka blokuje zapis.</p>}<div className="result-summary"><CostSummary cart={record}/></div><Referral/></main>;
+}
